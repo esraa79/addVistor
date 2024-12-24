@@ -9,25 +9,40 @@
     body {
       padding: 20px;
     }
+    label {
+      text-align: right; /* Aligns text to the right */
+      direction: rtl;    /* Right-to-left text direction */
+      display: block;    /* Makes sure the label takes the full width */
+    }
+    input {
+      text-align: right; /* Aligns text to the right */
+      direction: rtl;    /* Right-to-left text direction */
+      display: block;    /* Makes sure the label takes the full width */
+    }
+    select
+    {
+        text-align: right; /* Aligns text to the right */
+      direction: rtl;    /* Right-to-left text direction */
+      display: block;  
+    }
   </style>
 </head>
 <body>
 
   <div class="container ">
-    <h2 class="my-4 ms-0">اضافة زائر</h2>
+    <h2 class="my-4 me-0">اضافة زائر</h2>
 
     <!-- Form to add/edit data -->
     <form id="crudForm">
         <table class="table">
             <thead>
-                <tr>
+                <tr>                
                    
-                   
-                    <th scope="col">رقم الاقامة</th>
-                    <th scope="col">الاسم</th>
-                    <th scope="col">الجوال</th>
-                    <th scope="col">القسم</th>
-                    <th scope="col">الوقت</th>
+                    <th scope="col"><label >رقم الاقامة</label></th>
+                    <th scope="col"><label >الاسم</label></th>
+                    <th scope="col"><label >الجوال</label></th>
+                    <th scope="col"><label >القسم</label></th>
+                    <th scope="col"><label >الوقت</label></th>
                     <th scope="col"></th>
                 </tr>
             </thead>

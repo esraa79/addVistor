@@ -1,0 +1,5 @@
+label {
+    text-align: right; /* Aligns the text to the right */
+    direction: rtl;    /* Sets the text direction to Right-To-Left */
+    display: block;    /* Ensures the label is displayed as a block element */
+  }
