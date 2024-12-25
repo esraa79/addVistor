@@ -1,89 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar"> <!-- Set language to Arabic -->
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CRUD Operations</title>
+  <title>إدارة الزائرين - أمانة جدة</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
   <style>
     body {
       padding: 20px;
+      direction: rtl; /* Set body text direction to right-to-left */
+      font-family: 'Arial', sans-serif; /* Formal font */
+      background-color: #f4f6f9; /* Light gray background */
     }
-    label {
-      text-align: right; /* Aligns text to the right */
+
+    .form-label, .form-control, .form-select {
+      text-align: right; /* Align text to the right */
       direction: rtl;    /* Right-to-left text direction */
-      display: block;    /* Makes sure the label takes the full width */
     }
-    input {
-      text-align: right; /* Aligns text to the right */
-      direction: rtl;    /* Right-to-left text direction */
-      display: block;    /* Makes sure the label takes the full width */
+
+    .form-label {
+      display: block;
+      text-align: right;
     }
-    select
-    {
-        text-align: right; /* Aligns text to the right */
-      direction: rtl;    /* Right-to-left text direction */
-      display: block;  
+
+    table {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    /* Ensure the table looks good on smaller screens */
+    @media (max-width: 576px) {
+      .table thead {
+        display: none; /* Hide headers on small screens */
+      }
+      .table td {
+        display: block;
+        text-align: right; /* Ensure right-to-left text alignment */
+      }
+      .table td::before {
+        content: attr(data-label); /* Show label for each column */
+        font-weight: bold;
+        display: inline-block;
+      }
+    }
+
+    /* Hide the table by default */
+    #itemsTable {
+      display: none;
+    }
+
+    /* Header styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      background-color: #b1c5d9; /* Government blue color */
+      color: rgb(22, 44, 184);
+      border-radius: 5px;
+    }
+
+    .header img {
+      max-width: 100px; /* Adjust size */
+      height: auto;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+
+    .container {
+      margin-top: 30px;
+    }
+
+    .btn-primary {
+      margin-top: 15px;
+      background-color: #003366; /* Matching button color with header */
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #00509e; /* Slightly lighter shade for hover */
+    }
+
+    .btn:focus {
+      outline: none; /* Remove outline on button focus */
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add subtle shadow */
     }
   </style>
 </head>
 <body>
 
-  <div class="container ">
-    <h2 class="my-4 me-0">اضافة زائر</h2>
+  <!-- Header with logo -->
+  <div class="header">
+    <img src="./AmanahLogo.png" alt="Logo"> <!-- Replace with your logo URL -->
+    <h1>إدارة الزائرين - أمانة جدة</h1>
+  </div>
+
+  <div class="container">
+    <h2 class="my-4">إضافة زائر</h2>
 
     <!-- Form to add/edit data -->
     <form id="crudForm">
-        <table class="table">
-            <thead>
-                <tr>                
-                   
-                    <th scope="col"><label >رقم الاقامة</label></th>
-                    <th scope="col"><label >الاسم</label></th>
-                    <th scope="col"><label >الجوال</label></th>
-                    <th scope="col"><label >القسم</label></th>
-                    <th scope="col"><label >الوقت</label></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td> <input type="text"  id="iqamaNumber" required></td>
-                    <td><input type="text"  id="name" required></td>
-                    <td><input type="tel"  id="mobile" required></td>
-                    <td> <select  id="department" required>
-                        <option value="" disabled selected>اختر القسم</option>
-                        <option value="HR">ادارة السلامة</option>
-                        <option value="IT">الادارة العامة لصحة البيئة</option>
-                        <option value="Finance">الادارة العامة للحدائق والتشجير والمرافق البلدية</option>
-                        <option value="Marketing">الادارة العامة للدراسات والاشراف</option>
-                      </select></td>
-                      <td> <input type="time" class="form-control" id="time" required></td>
-                </tr>
-            </tbody>
-        </table>
-    
-
-    
-     
-
-      
-      
-      <button type="submit" class="btn btn-primary" id="submitBtn">اضافة</button>
-     <!--  <button type="button" class="btn btn-warning" id="updateBtn" style="display: none;">Update Item</button> -->
+      <table class="table ">
+        <thead>
+          <tr>
+            <th scope="col"><label for="iqamaNumber">رقم الاقامة</label></th>
+            <th scope="col"><label for="name">الاسم</label></th>
+            <th scope="col"><label for="mobile">الجوال</label></th>
+            <th scope="col"><label for="department">القسم</label></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" id="iqamaNumber" class="form-control" required></td>
+            <td><input type="text" id="name" class="form-control" required></td>
+            <td><input type="tel" id="mobile" class="form-control" required></td>
+            <td>
+              <select id="department" class="form-select" required>
+                <option value="" disabled selected>اختر القسم</option>
+                <option value="HR">إدارة السلامة</option>
+                <option value="IT">الإدارة العامة لصحة البيئة</option>
+                <option value="Finance">الإدارة العامة للحدائق والتشجير والمرافق البلدية</option>
+                <option value="Marketing">الإدارة العامة للدراسات والإشراف</option>
+              </select>
+            </td>
+            <td><button type="submit" class="btn btn-primary" id="submitBtn">إضافة</button></td>
+          </tr>
+        </tbody>
+      </table>
     </form>
 
-    <h3 class="my-4">الزائرين</h3>
-    <table class="table table-bordered">
+    <!-- Table to show added items -->
+    <table class="table table-bordered" id="itemsTable">
       <thead>
         <tr>
-          <th scope="col">رقم الاقامة</th>
-                    <th scope="col">الاسم</th>
-                    <th scope="col">الجوال</th>
-                    <th scope="col">القسم</th>
-                    <th scope="col">الوقت</th>
-                   
-         <!--<th>Actions</th> --> 
+          <th colspan="5" class="text-center"><h3 class="my-4">الزائرين</h3></th>
+        </tr>
+      </thead>
+      <thead>       
+        <tr>
+          <th>رقم الاقامة</th>
+          <th>الاسم</th>
+          <th>الجوال</th>
+          <th>القسم</th>
+          <th>الوقت</th>
         </tr>
       </thead>
       <tbody id="itemTable">
@@ -96,25 +161,31 @@
   <script>
     // Define an array to store the items (CRUD records)
     let items = [];
-    let currentItemIndex = null;
 
     // Function to render the items in the table
     function renderItems() {
       const itemTable = document.getElementById('itemTable');
+      const itemsTable = document.getElementById('itemsTable');
       itemTable.innerHTML = ''; // Clear the table
 
-      items.forEach((item, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${item.iqamaNumber}</td>
-          <td>${item.name}</td>
-          <td>${item.mobile}</td>
-          <td>${item.department}</td>
-          <td>${item.time}</td>
-       
-        `;
-        itemTable.appendChild(row);
-      });
+      if (items.length === 0) {
+        // Hide the table if no items exist
+        itemsTable.style.display = 'none';
+      } else {
+        // Show the table if there are items
+        itemsTable.style.display = 'table'; // Display the table
+        items.forEach((item, index) => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${item.iqamaNumber}</td>
+            <td>${item.name}</td>
+            <td>${item.mobile}</td>
+            <td>${item.department}</td>
+            <td>${item.time}</td>
+          `;
+          itemTable.appendChild(row);
+        });
+      }
     }
 
     // Add Item (Create operation)
@@ -125,46 +196,24 @@
       const name = document.getElementById('name').value;
       const mobile = document.getElementById('mobile').value;
       const department = document.getElementById('department').value;
-      const time = document.getElementById('time').value;
+      
+      // Get the current date and time
+      const time = new Date().toLocaleString({ 
+        hour: '2-digit', minute: '2-digit', second: '2-digit', 
+        year: 'numeric', month: '2-digit', day: '2-digit' 
+      });
 
-      // If we're updating an item, modify it
-      if (currentItemIndex !== null) {
-        items[currentItemIndex] = { iqamaNumber, name, mobile, department, time };
-        currentItemIndex = null;
-        document.getElementById('submitBtn').style.display = 'inline-block';
-        document.getElementById('updateBtn').style.display = 'none';
-      } else {
-        // Add new item
-        items.push({ iqamaNumber, name, mobile, department, time });
-      }
+      // Add new item
+      items.push({ iqamaNumber, name, mobile, department, time });
 
+      // Clear the form fields
       document.getElementById('iqamaNumber').value = '';
       document.getElementById('name').value = '';
       document.getElementById('mobile').value = '';
       document.getElementById('department').value = '';
-      document.getElementById('time').value = '';
-      renderItems();
+
+      renderItems(); // Re-render the items list
     });
-
-    // Edit Item (Update operation)
-    function editItem(index) {
-      const item = items[index];
-      document.getElementById('iqamaNumber').value = item.iqamaNumber;
-      document.getElementById('name').value = item.name;
-      document.getElementById('mobile').value = item.mobile;
-      document.getElementById('department').value = item.department;
-      document.getElementById('time').value = item.time;
-
-      currentItemIndex = index;
-      document.getElementById('submitBtn').style.display = 'none';
-      document.getElementById('updateBtn').style.display = 'inline-block';
-    }
-
-    // Delete Item (Delete operation)
-    function deleteItem(index) {
-      items.splice(index, 1);
-      renderItems();
-    }
 
     renderItems(); // Initialize the table with existing items
   </script>
